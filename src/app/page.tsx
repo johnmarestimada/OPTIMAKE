@@ -1,20 +1,16 @@
-import Link from "next/link";
+import Link from 'next/link';
 export default function Home() {
   return (
-    <div className="flex items-center justify-center h-screen bg-[#EAF4FA] relative"> 
+    <div className="flex h-screen bg-[#EAF4FA] justify-center items-center "> 
 
-<img 
-        src="/logo.svg" 
-        alt="Logo" 
-        className="w-60 h-60 absolute top-32 right-80 z-20"></img>
-
-      <div className="bg-white p-10 rounded-xl shadow-lg w-[700px] h-[500px] relative z-10">
+      <div className="flex justify-between bg-white rounded-xl shadow-lg w-[800px] h-[500px] z-10">
+        <div className="p-10">      
         <div className="text-cyan-500 text-sm cursor-pointer mb-6">&lt; Back</div>
         
         <h1 className="text-3xl font-extrabold mb-6">Login</h1>
         
         <label className="block font-bold mb-2">Email</label>
-        <div className="flex items-center border-2 rounded-lg px-3 py-2 mb-4 w-72">
+        <div className="flex items-center border-2 rounded-lg px-3 py-2 mb-4 w-64">
           <span className="text-gray-400">@</span>
           <input 
             type="email" 
@@ -23,7 +19,7 @@ export default function Home() {
           />
         </div>
         <label className="block font-bold mb-2">Password</label>
-        <div className="flex items-center border-2 rounded-lg px-3 py-2 mb-4 w-72">
+        <div className="flex items-center border-2 rounded-lg px-3 py-2 mb-4 w-64">
         <span className="text-gray-400">@</span>
         <input 
           type="password" 
@@ -31,22 +27,26 @@ export default function Home() {
           placeholder="Enter your password"
         />
         </div>
-        
-        <div className="text-cyan-500 text-sm text-left mb-6 cursor-pointer">Forgot your password?</div>
-        
-        <button className="float-right w-60 bg-cyan-400 text-white font-bold py-2 rounded-lg shadow-md hover:bg-cyan-500 transition-all">
+    
+            {<div className="text-cyan-500 text-sm text-left mb-6 cursor-pointer">Forgot your password?</div>}
+  <button className="float-right w-60 bg-cyan-400 text-white font-bold py-2 rounded-lg shadow-md hover:bg-cyan-500 transition-all">
           Login
         </button>
         
-        <div className="text-center text-sm text-gray-500 mt-4 absolute bottom-5 w-full">
+        <div className="text-center text-sm text-gray-500 bottom-10">
           Don't have an account? 
-          <Link href="/registration">
+            <Link href="/registration">
             <span className="text-cyan-500 cursor-pointer"> Sign up here.</span>
           </Link>
         </div>
       </div>
+      <img 
+        src="/logo.svg" 
+        alt="Logo" 
+        className="w-60 h-60 absolute ml-96 "></img>
+        <div className="bg-cyan-300 rounded-lg flex w-64 h-100 z-10"></div>
 
-      <div className="hidden md:block bg-cyan-300 h-[500px] w-[250px] absolute top-1/2 transform -translate-y-1/2 right-44 rounded-lg"></div>
+      </div>
     </div>
   );
 }
