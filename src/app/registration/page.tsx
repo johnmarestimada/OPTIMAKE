@@ -7,8 +7,10 @@ export default function Home() {
         <div className="p-10">      
         <div className="text-cyan-500 text-sm cursor-pointer mb-6">&lt; Back</div>
         
-        <h1 className="text-3xl font-extrabold mb-6">Login</h1>
-        
+        <h1 className="text-4xl font-extrabold mb-2">Registration</h1>
+        <div className="text-left text-sm text-gray-500 mb-6">
+          Kindly input your credentials below.
+        </div>
         <label className="block font-bold mb-2">Email</label>
         <div className="flex items-center border-2 rounded-lg px-3 py-2 mb-4 w-64">
           <span className="text-gray-400">@</span>
@@ -19,7 +21,7 @@ export default function Home() {
           />
         </div>
         <label className="block font-bold mb-2">Password</label>
-        <div className="flex items-center border-2 rounded-lg px-3 py-2 mb-4 w-64">
+        <div className="flex items-center border-2 rounded-lg px-3 py-2 mb-8 w-64">
         <span className="text-gray-400">@</span>
         <input 
           type="password" 
@@ -27,16 +29,15 @@ export default function Home() {
           placeholder="Enter your password"
         />
         </div>
-    
-            {<div className="text-cyan-500 text-sm text-left mb-6 cursor-pointer">Forgot your password?</div>}
-  <button className="float-right w-60 bg-cyan-400 text-white font-bold py-2 rounded-lg shadow-md hover:bg-cyan-500 transition-all mb-10">
-          Login
+        <Link href="/registration/confirmation">
+      <button className="float-right w-60 bg-cyan-400 text-white font-bold py-2 rounded-lg shadow-md hover:bg-cyan-500 transition-all mb-10">
+          Continue &gt;
         </button>
-        
-        <div className="text-center text-sm text-gray-500 bottom-10">
-          Don't have an account? 
-            <Link href="/registration">
-            <span className="text-cyan-500 cursor-pointer"> Sign up here.</span>
+        </Link>
+        <div className="text-sm text-gray-500 mb-30">
+          Already have an account? 
+            <Link href="/">
+            <span className="text-cyan-500 cursor-pointer"> Sign In here.</span>
           </Link>
         </div>
       </div>
