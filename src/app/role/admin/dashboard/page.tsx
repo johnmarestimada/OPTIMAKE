@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import dynamic from 'next/dynamic';
+import React, { useEffect, useState } from "react";
 
 // Define TypeScript interfaces for our data structures
 interface Room {
@@ -18,7 +19,14 @@ interface Building {
   id: number;
   name: string;
   floors: Floor[];
+  location?: [number, number]; // Latitude and longitude
 }
+
+// Dynamically import Leaflet components to avoid SSR issues
+const MapComponent = dynamic(
+  () => import('./MapComponent'),
+  { ssr: false }
+);
 
 const ClassSchedulingDashboard: React.FC = () => {
   // State for buildings, selected building, etc.
@@ -26,12 +34,14 @@ const ClassSchedulingDashboard: React.FC = () => {
     {
       id: 1,
       name: "College of Information Technology and Computing",
-      floors: [{ id: 1, name: "Floor 1", rooms: [{ id: 1, name: "Room 1" }] }]
+      floors: [{ id: 1, name: "Floor 1", rooms: [{ id: 1, name: "Room 1" }] }],
+      location: [14.5995, 120.9842], // Example location for Manila
     },
     {
       id: 2,
       name: "College of Engineering and Architecture",
-      floors: [{ id: 1, name: "Floor 1", rooms: [{ id: 1, name: "Room 1" }] }]
+      floors: [{ id: 1, name: "Floor 1", rooms: [{ id: 1, name: "Room 1" }] }],
+      location: [14.6010, 120.9876], // Example location
     }
   ]);
   
@@ -42,13 +52,17 @@ const ClassSchedulingDashboard: React.FC = () => {
   const [newFloorName, setNewFloorName] = useState<string>("Floor 1");
   const [newRoomName, setNewRoomName] = useState<string>("Room 1");
   
+  // New state for the map location
+  const [mapPosition, setMapPosition] = useState<[number, number]>([14.5995, 120.9842]); // Default to Manila
+  
   // Building functions
   const addBuilding = (): void => {
     if (newBuildingName && newBuildingNo) {
       const newBuilding: Building = {
         id: buildings.length + 1,
         name: newBuildingName,
-        floors: [{ id: 1, name: "Floor 1", rooms: [{ id: 1, name: "Room 1" }] }]
+        floors: [{ id: 1, name: "Floor 1", rooms: [{ id: 1, name: "Room 1" }] }],
+        location: mapPosition // Add the selected location
       };
       setBuildings([...buildings, newBuilding]);
       setNewBuildingName("");
@@ -77,6 +91,18 @@ const ClassSchedulingDashboard: React.FC = () => {
     const roomId = lastFloor.rooms ? lastFloor.rooms.length + 1 : 1;
     lastFloor.rooms.push({ id: roomId, name: `Room ${roomId}` });
     setBuildings(updatedBuildings);
+  };
+
+  // For client-side only rendering of the map component
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Function to update mapPosition from child component
+  const updateMapPosition = (lat: number, lng: number) => {
+    setMapPosition([lat, lng]);
   };
 
   return (
@@ -165,12 +191,44 @@ const ClassSchedulingDashboard: React.FC = () => {
             
             <div className="mb-6">
               <h3 className="mb-2">Location</h3>
-              <div className="bg-gray-200 h-40 mb-4 rounded">
-                <img 
-                  src="/api/placeholder/800/320" 
-                  alt="Map location" 
-                  className="w-full h-full object-cover rounded"
-                />
+              <div className="bg-gray-200 h-64 mb-4 rounded overflow-hidden">
+                {isMounted && (
+                  <MapComponent 
+                    position={mapPosition}
+                    onPositionChange={updateMapPosition}
+                    buildings={[]}
+                    zoom={13}
+                    height="100%"
+                    editable={true}
+                  />
+                )}
+              </div>
+              
+              <div className="flex space-x-4 mb-4">
+                <div className="w-1/2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Latitude</label>
+                  <input 
+                    type="text" 
+                    className="p-2 bg-sky-200 rounded w-full" 
+                    value={mapPosition[0]}
+                    onChange={(e) => {
+                      const lat = parseFloat(e.target.value);
+                      if (!isNaN(lat)) setMapPosition([lat, mapPosition[1]]);
+                    }}
+                  />
+                </div>
+                <div className="w-1/2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Longitude</label>
+                  <input 
+                    type="text" 
+                    className="p-2 bg-sky-200 rounded w-full" 
+                    value={mapPosition[1]}
+                    onChange={(e) => {
+                      const lng = parseFloat(e.target.value);
+                      if (!isNaN(lng)) setMapPosition([mapPosition[0], lng]);
+                    }}
+                  />
+                </div>
               </div>
               
               <input 
@@ -246,6 +304,23 @@ const ClassSchedulingDashboard: React.FC = () => {
           <div className="w-2/3 p-4">
             <h2 className="text-2xl font-normal mb-4">Buildings Dashboard</h2>
             <p>Select 'Create Building' to add a new building.</p>
+            
+            {/* Display buildings with their locations on a map */}
+            {isMounted && buildings.length > 0 && (
+              <div className="mt-4">
+                <h3 className="text-lg mb-2">Building Locations</h3>
+                <div className="h-96 rounded overflow-hidden">
+                  <MapComponent 
+                    position={buildings[0].location || [14.5995, 120.9842]}
+                    onPositionChange={() => {}}
+                    buildings={buildings}
+                    zoom={13}
+                    height="100%"
+                    editable={false}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

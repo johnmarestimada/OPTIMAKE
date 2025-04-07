@@ -7,6 +7,8 @@
     "npm:@types/react@19": "19.0.8",
     "npm:eslint-config-next@15.1.6": "15.1.6_eslint@9.19.0_typescript@5.7.3_@typescript-eslint+parser@8.22.0__eslint@9.19.0__typescript@5.7.3_eslint-plugin-import@2.31.0__eslint@9.19.0",
     "npm:eslint@9": "9.19.0",
+    "npm:leaflet@^1.9.4": "1.9.4",
+    "npm:lucide-react@0.486": "0.486.0_react@19.0.0",
     "npm:next@15.1.6": "15.1.6_react@19.0.0_react-dom@19.0.0__react@19.0.0",
     "npm:postcss@8": "8.5.1",
     "npm:react-dom@19": "19.0.0_react@19.0.0",
@@ -1553,6 +1555,9 @@
         "language-subtag-registry"
       ]
     },
+    "leaflet@1.9.4": {
+      "integrity": "sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA=="
+    },
     "levn@0.4.1": {
       "integrity": "sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==",
       "dependencies": [
@@ -1583,6 +1588,12 @@
     },
     "lru-cache@10.4.3": {
       "integrity": "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ=="
+    },
+    "lucide-react@0.486.0_react@19.0.0": {
+      "integrity": "sha512-xWop/wMsC1ikiEVLZrxXjPKw4vU/eAip33G2mZHgbWnr4Nr5Rt4Vx4s/q1D3B/rQVbxjOuqASkEZcUxDEKzecw==",
+      "dependencies": [
+        "react"
+      ]
     },
     "math-intrinsics@1.1.0": {
       "integrity": "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="
@@ -2445,6 +2456,8 @@
         "npm:@types/react@19",
         "npm:eslint-config-next@15.1.6",
         "npm:eslint@9",
+        "npm:leaflet@^1.9.4",
+        "npm:lucide-react@0.486",
         "npm:next@15.1.6",
         "npm:postcss@8",
         "npm:react-dom@19",
