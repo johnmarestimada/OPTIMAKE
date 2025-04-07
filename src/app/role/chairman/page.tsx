@@ -31,9 +31,11 @@ export default function SelectRole() {
         />
           </div>
 
+          <Link href="/role/chairman/dashboard">
           <button className="float-center w-60 bg-cyan-400 text-white font-bold py-2 rounded-lg shadow-md hover:bg-cyan-500 transition-all mb-10">
           Continue &gt;
         </button>
+        </Link>
           
           <p className="text-gray-500 text-sm mt-10">
             Learn more about roles and permissions 

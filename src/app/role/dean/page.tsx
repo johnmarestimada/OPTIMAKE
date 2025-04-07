@@ -35,9 +35,11 @@ export default function SelectRole() {
           </div>
 
           {/* Continue Button */}
+          <Link href="/role/dean/dashboard">
           <button className="w-60 bg-cyan-400 text-white font-bold py-2 rounded-lg shadow-md hover:bg-cyan-500 transition-all mb-10 mx-auto block">
             Continue &gt;
           </button>
+          </Link>
           
           {/* Learn More Link */}
           <p className="text-gray-500 text-sm mt-10">
